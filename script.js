@@ -2,6 +2,7 @@
 
 // document.querySelectorAll('.slot .value');
 
+let stop = document.getElementById('stop');
 
 let value1 = document.getElementById("value1");
 
@@ -17,30 +18,32 @@ function getRandom() {
 }
 
 let animationId;
-let x=0;
+let x = 0;
 function updateAnimation(newSpeed) {
     if (animationId)
         clearInterval(animationId);
+    if (newSpeed != 0) {
+        animationId = setInterval(() => {
 
-    animationId = setInterval(() => {
 
-       
-        let x1= value1.innerText = getRandom();
-       let x2= value2.innerText = getRandom();
-       let x3= value3.innerText = getRandom();
-        if(x1==x2  && x1==x3 && x2==x3)
-        {
-            alert("you win bro enjoy your life u will achieve a lot inn future")
-           
-       
-           
-        
-        }
+            let x1 = value1.innerText = getRandom();
+            let x2 = value2.innerText = getRandom();
+            let x3 = value3.innerText = getRandom();
+            if(x1==x2 && x2==x3 && x3==x1)
+            {
+                document.documentElement.style.setProperty('--speed', 0);
+                updateAnimation(0)
+                alert("you won enjoy")
+            
+            }
 
-    }, 1000 / newSpeed)
-//    if(x==1)
-//     clearInterval(animationId);
+        }, 1000 / newSpeed)
+    }
+
+
+
 }
+
 
 
 
@@ -50,5 +53,13 @@ inpSpeed.onchange = function (event) {
 
     document.documentElement.style.setProperty('--speed', event.target.value)
 
-   updateAnimation(event.target.value);
+    updateAnimation(event.target.value);
+}
+
+stop.onclick = () => {
+    console.log("hell")
+    document.documentElement.style.setProperty('--speed', 0);
+    updateAnimation(0)
+
+   
 }
